@@ -2,6 +2,7 @@
 
 import MyHeader from "./MyHeader";
 import Counter from "./Counter";
+import Container from "./Container";
 
 function App() {
   const counterProps = {
@@ -9,10 +10,12 @@ function App() {
   }
 
   return (
-    <div>
-      <MyHeader/>
-      <Counter {...counterProps}/>
-    </div>
+    <Container>
+      <div>
+        <MyHeader/>
+        <Counter {...counterProps}/>
+      </div>
+    </Container>
   );
 }
 
