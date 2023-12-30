@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <MyHeader/>
-      <Counter/>
+      <Counter initValue={5}/>
     </div>
   );
 }
