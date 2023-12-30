@@ -17,4 +17,10 @@ const Counter = ({initValue, plusValue, minusValue}) => {
   )
 }
 
+Counter.defaultProps = {
+  initValue: 0,
+  plusValue: 1,
+  minusValue: 1,
+}
+
 export default Counter;
