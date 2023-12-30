@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import OddEvenResult from "./OddEvenResult";
 
 const Counter = ({initValue, plusValue, minusValue}) => {
   const [count, setCount] = useState(initValue);
@@ -13,6 +14,7 @@ const Counter = ({initValue, plusValue, minusValue}) => {
       <h2>{count}</h2>
       <button onClick={plus}>+</button>
       <button onClick={minus}>-</button>
+      <OddEvenResult count={count}/>
     </div>
   )
 }
