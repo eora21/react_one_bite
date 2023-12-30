@@ -1,1 +1,3 @@
-console.log("hello nodejs package");
+const randomColor = require("randomcolor");
+
+console.log(randomColor());
