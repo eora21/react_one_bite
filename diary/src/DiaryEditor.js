@@ -20,7 +20,7 @@ const DiaryEditor = () => {
   }
 
   return (
-    <div>
+    <div className="DiaryEditor">
       <h2>오늘의 일기</h2>
       <div>
         <input name="author" value={state.author} onChange={handleChangeState}/>
