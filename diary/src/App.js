@@ -41,13 +41,12 @@ function App() {
     setData(data => [newItem, ...data,])
   }, []);
 
-  const onRemove = (targetId) => {
-    const newDiaryList = data.filter(diary => diary.id !== targetId);
-    setData(newDiaryList);
-  }
+  const onRemove = useCallback((targetId) => {
+    setData(data => data.filter(diary => diary.id !== targetId));
+  }, []);
 
-  const onEdit = (targetId, newContent) => {
-    setData(
+  const onEdit = useCallback((targetId, newContent) => {
+    setData(data =>
       data.map(
         diary => diary.id === targetId ?
           {...diary, content: newContent}
@@ -55,7 +54,7 @@ function App() {
           diary
       )
     )
-  }
+  }, []);
 
   const getDiaryAnalysis = useMemo(() => {
     const goodCount = data.filter(diary => diary.emotion >= 3).length;
