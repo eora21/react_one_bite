@@ -6,24 +6,21 @@ const DiaryEditor = () => {
     content: "",
   });
 
+  const handleChangeState = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    })
+  }
+
   return (
     <div>
       <h2>오늘의 일기</h2>
       <div>
-        <input value={state.author} onChange={(e) => {
-          setState({
-            ...state,
-            author: e.target.value,
-          });
-        }}/>
+        <input name="author" value={state.author} onChange={handleChangeState}/>
       </div>
       <div>
-        <textarea value={state.content} onChange={(e) => {
-          setState({
-            ...state,
-            content: e.target.value,
-          });
-        }}/>
+        <textarea name="content" value={state.content} onChange={handleChangeState}/>
       </div>
     </div>
   );
