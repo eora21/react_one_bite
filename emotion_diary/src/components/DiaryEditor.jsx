@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {MyHeader} from "./MyHeader";
 import {MyButton} from "./MyButton";
+import {EmotionItem} from "./EmotionItem";
 
 const getStringDate = date => {
   return date.toISOString().slice(0, 10);
@@ -38,7 +39,12 @@ const emotionList = [
 export const DiaryEditor = () => {
   const navigate = useNavigate();
 
+  const [emotion, setEmotion] = useState(3);
   const [date, setDate] = useState(getStringDate(new Date()));
+
+  const handleClickEmote = (emotion) => {
+    setEmotion(emotion);
+  }
 
   return (
     <div className="DiaryEditor">
@@ -62,10 +68,9 @@ export const DiaryEditor = () => {
         <section>
           <h4>오늘의 감정</h4>
           <div className="input_box emotion_list_wrapper">
-            {emotionList.map((emotion) => (
-              <div key={emotion.emotion_id}>
-                {emotion.emotion_descript}
-              </div>
+            {emotionList.map((item) => (
+              <EmotionItem key={item.emotion_id} {...item} onClick={handleClickEmote}
+                           isSelected={item.emotion_id === emotion}/>
             ))}
           </div>
         </section>
