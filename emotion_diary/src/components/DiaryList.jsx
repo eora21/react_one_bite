@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {MyButton} from "./MyButton";
 import {useNavigate} from "react-router-dom";
+import {DiaryItem} from "./DiaryItem";
 
 const ControlMenu = ({value, onChange, optionList}) => {
   return <select className="ControlMenu" value={value} onChange={e => onChange(e.target.value)}>
@@ -59,7 +60,7 @@ export const DiaryList = ({diaryList}) => {
         </div>
       </div>
       {getProcessedDiaryList().map(diary =>
-        <div key={diary.id}>{diary.content} {diary.emotion}</div>
+        <DiaryItem key={diary.id} {...diary}/>
       )}
     </div>
   )
