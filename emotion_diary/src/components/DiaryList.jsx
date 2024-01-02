@@ -1,15 +1,15 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {MyButton} from "./MyButton";
 import {useNavigate} from "react-router-dom";
 import {DiaryItem} from "./DiaryItem";
 
-const ControlMenu = ({value, onChange, optionList}) => {
+const ControlMenu = React.memo(({value, onChange, optionList}) => {
   return <select className="ControlMenu" value={value} onChange={e => onChange(e.target.value)}>
     {optionList.map((option, idx) => (
       <option key={idx} value={option.value}>{option.name}</option>
     ))}
   </select>
-}
+});
 
 const sortOptionList = [
   {value: "latest", name: "최신순"},
