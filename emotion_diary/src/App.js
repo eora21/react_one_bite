@@ -4,7 +4,6 @@ import {Home} from "./pages/Home";
 import {New} from "./pages/New";
 import {Edit} from "./pages/Edit";
 import {Diary} from "./pages/Diary";
-import {RouteTest} from "./components/RouteTest";
 import React, {useEffect, useReducer, useRef} from "react";
 
 const reducer = (state, action) => {
@@ -46,6 +45,11 @@ function App() {
     }
 
     const diaryList = JSON.parse(localData);
+
+    if (!diaryList.length) {
+      return;
+    }
+
     const maxId = diaryList.map(diary => parseInt(diary.id))
       .reduce((previous, current) => Math.max(previous, current));
 
@@ -99,9 +103,8 @@ function App() {
               <Route path="/edit/:id" element={<Edit/>}/>
               <Route path="/diary/:id" element={<Diary/>}/>
             </Routes>
-            <RouteTest/>
           </div>
-        </BrowserRouter>
+        </BrowserRouter>트
       </DiaryDispatchContext.Provider>
     </DiaryStateContext.Provider>
   );
