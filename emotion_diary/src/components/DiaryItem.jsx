@@ -1,7 +1,8 @@
 import {MyButton} from "./MyButton";
 import {useNavigate} from "react-router-dom";
+import React from "react";
 
-export const DiaryItem = ({id, emotion, content, date}) => {
+export const DiaryItem = React.memo(({id, emotion, content, date}) => {
   const navigate = useNavigate();
 
   const env = process.env;
@@ -27,4 +28,4 @@ export const DiaryItem = ({id, emotion, content, date}) => {
       </div>
     </div>
   )
-}
+});
