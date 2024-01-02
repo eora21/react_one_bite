@@ -5,67 +5,57 @@ import {New} from "./pages/New";
 import {Edit} from "./pages/Edit";
 import {Diary} from "./pages/Diary";
 import {RouteTest} from "./components/RouteTest";
-import React, {useReducer, useRef} from "react";
+import React, {useEffect, useReducer, useRef} from "react";
 
 const reducer = (state, action) => {
+  let newState = [];
+
   switch (action.type) {
     case "INIT": {
       return action.data;
     }
     case "CREATE": {
-      return [action.data, ...state];
+      newState = [action.data, ...state];
+      break;
     }
     case "REMOVE": {
-      return state.filter(diary => diary.id !== action.targetId);
+      newState = state.filter(diary => diary.id !== action.targetId);
+      break;
     }
     case "EDIT": {
-      return state.map(diary => diary.id === action.data.id ? action.data : diary);
+      newState = state.map(diary => diary.id === action.data.id ? action.data : diary);
+      break;
     }
     default:
       return state;
   }
-}
 
-const dummyData = [
-  {
-    id: 1,
-    emotion: 1,
-    content: "1번",
-    date: 1704083822356
-  },
-  {
-    id: 2,
-    emotion: 2,
-    content: "2번",
-    date: 1704083822357
-  },
-  {
-    id: 3,
-    emotion: 3,
-    content: "3번",
-    date: 1704083822358
-  },
-  {
-    id: 4,
-    emotion: 4,
-    content: "4번",
-    date: 1704083822359
-  },
-  {
-    id: 5,
-    emotion: 5,
-    content: "5번",
-    date: 1704083822360
-  },
-]
+  localStorage.setItem("diary", JSON.stringify(newState));
+  return newState;
+}
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  useEffect(() => {
+    const localData = localStorage.getItem("diary");
 
-  const dataId = useRef(6);
+    if (!localData) {
+      return;
+    }
+
+    const diaryList = JSON.parse(localData);
+    const maxId = diaryList.map(diary => parseInt(diary.id))
+      .reduce((previous, current) => Math.max(previous, current));
+
+    dataId.current = maxId + 1;
+    dispatch({type: "INIT", data: diaryList});
+  }, []);
+
+  const [data, dispatch] = useReducer(reducer, []);
+
+  const dataId = useRef(0);
 
   const onCreate = (date, content, emotion) => {
     dispatch({
